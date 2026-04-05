@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<title>Для тебе ❤️</title>
+
+<style>
+body {
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: radial-gradient(circle at top, #1a1a2e, #0f0f0f);
+    font-family: 'Segoe UI', sans-serif;
+    color: white;
+    overflow: hidden;
+}
+
+.container {
+    text-align: center;
+    max-width: 750px;
+    padding: 30px;
+    border-radius: 20px;
+    background: rgba(255,255,255,0.05);
+    backdrop-filter: blur(12px);
+    box-shadow: 0 0 40px rgba(255, 75, 92, 0.3);
+}
+
+button {
+    margin: 10px;
+    padding: 12px 25px;
+    border: none;
+    border-radius: 12px;
+    background: linear-gradient(45deg, #ff4b5c, #ff1e3c);
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+button:hover { transform: scale(1.1); }
+
+.name {
+    font-size: 52px;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+.name span {
+    opacity: 0;
+    display: inline-block;
+    transform: translateY(20px);
+    background: linear-gradient(45deg, #ff4b5c, #ff9a9e, #6a82fb);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: letterFade 0.5s forwards;
+}
+
+.name span:nth-child(1){animation-delay:0.1s;}
+.name span:nth-child(2){animation-delay:0.3s;}
+.name span:nth-child(3){animation-delay:0.5s;}
+.name span:nth-child(4){animation-delay:0.7s;}
+
+@keyframes letterFade {
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.letter {
+    text-align: left;
+    font-size: 18px;
+    line-height: 1.7;
+    white-space: pre-line;
+}
+
+.cursor {
+    display: inline-block;
+    width: 2px;
+    background: white;
+    margin-left: 3px;
+    animation: blink 1s infinite;
+}
+
+@keyframes blink { 50% { opacity: 0; } }
+
+.heart {
+    position: absolute;
+    color: #ff4b5c;
+    animation: float 6s linear infinite;
+}
+
+@keyframes float {
+    from { transform: translateY(100vh); opacity: 1; }
+    to { transform: translateY(-10vh); opacity: 0; }
+}
+</style>
+</head>
+
+<body>
+
+<div class="container" id="main">
+    <h1>Для тебе ❤️</h1>
+    <p>Маленький квест перед подарунком 😏</p>
+    <button onclick="step1()">Почати</button>
+</div>
+
+<audio id="music" loop>
+    <source src="music.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+
+const text = `З днем народження, Нюша… 🎉
+
+Іноді в житті зустрічаються люди, яких складно пояснити словами. Не тому що нічого сказати, а тому що все, що про них можна сказати — здається недостатнім. Ти саме така людина.
+
+У тобі є щось дуже справжнє. Тиха доброта, щирість, тепло — не показне, не награне, а те, яке відчувається без зайвих слів. Ти не намагаєшся бути хорошою — ти просто така є. І саме це робить тебе особливою.
+
+Ти з тих людей, поруч з якими стає спокійніше. Десь всередині з’являється відчуття, що все не так вже й складно, що все можна пережити. І, можливо, ти навіть не помічаєш, як сильно впливаєш на людей… але ти справді залишаєш слід. Теплий, справжній.
+
+Дуже хочеться, щоб у твоєму житті було більше того ж тепла, яке ти даруєш іншим. Щоб поруч були люди, які бачать тебе по-справжньому — не поверхнево, а глибоко. Які цінують тебе не за щось, а просто за те, яка ти є.
+
+Нехай у тебе буде місце, де тобі завжди спокійно. Моменти, в яких ти відчуваєш себе щасливою без причини. І люди, поруч з якими тобі не потрібно прикидатися.
+
+І якщо раптом колись ти будеш сумніватися в собі… просто пам’ятай: ти — людина, яку неможливо замінити. Таких, як ти, справді дуже мало.
+
+Нюша… ти дуже багато значиш.
+І цей світ стає трохи кращим просто тому, що ти в ньому є ❤️
+
+З днем народження тебе ✨`;
+
+/* КВЕСТ */
+
+function step1() {
+    document.getElementById("main").innerHTML = `
+        <h2>Готова до сюрпризу? 😏</h2>
+        <button onclick="step2()">Так 😍</button>
+        <button onclick="step1()">Ні 😅</button>
+    `;
+}
+
+function step2() {
+    document.getElementById("main").innerHTML = `
+        <h2>Хто сьогодні найкраща? 💖</h2>
+        <button onclick="step3()">Я 😎</button>
+        <button onclick="step3()">Звісно я 😏</button>
+    `;
+}
+
+function step3() {
+    document.getElementById("main").innerHTML = `
+        <h2>Ти готова отримати щось особливе? ✨</h2>
+        <button onclick="step4()">Так!</button>
+    `;
+}
+
+function step4() {
+    document.getElementById("main").innerHTML = `
+        <h2>Останній крок… натисни 💌</h2>
+        <button onclick="openLetter()">Відкрити</button>
+    `;
+}
+
+/* ОТКРЫТИЕ */
+
+function openLetter() {
+    document.getElementById("music").play();
+
+    document.getElementById("main").innerHTML = `
+        <div class="name">
+            <span>Н</span><span>ю</span><span>ш</span><span>а</span> 💖
+        </div>
+        <div class="letter" id="letter"></div>
+    `;
+
+    typeText(text);
+}
+
+function typeText(text) {
+    let i = 0;
+    const letter = document.getElementById("letter");
+
+    function typing() {
+        if (i < text.length) {
+            letter.innerHTML = text.substring(0, i) + '<span class="cursor"></span>';
+            i++;
+            setTimeout(typing, 25);
+        } else {
+            letter.innerHTML = text;
+            showFinalHearts();
+        }
+    }
+
+    typing();
+}
+
+
+
+/* СЕРДЦА */
+
+setInterval(() => {
+    const heart = document.createElement("div");
+    heart.className = "heart";
+    heart.innerHTML = "❤";
+    heart.style.left = Math.random() * 100 + "vw";
+    heart.style.fontSize = (10 + Math.random() * 25) + "px";
+    document.body.appendChild(heart);
+    setTimeout(() => heart.remove(), 6000);
+}, 250);
+
+/* ИСКРЫ */
+
+setInterval(() => {
+    const spark = document.createElement("div");
+    spark.innerHTML = "✨";
+    spark.style.position = "absolute";
+    spark.style.left = Math.random() * 100 + "vw";
+    spark.style.top = Math.random() * 100 + "vh";
+    document.body.appendChild(spark);
+    setTimeout(() => spark.remove(), 3000);
+}, 300);
+
+</script>
+
+</body>
+</html>
